@@ -1,18 +1,22 @@
 <!DOCTYPE HTML>
-<html ng-app="libroController">
+<html ng-app="calculator">
+
 <head>
   <script src="./angular.min.js"></script>
   <script src="./calc.js"></script>
   <script src="./libroCtrl.js"></script>
   <link href="./bootstrap.css" rel="stylesheet">
 </head>
-<body >
-    <div>
-	    <div class="wrapper">
-        <div class="contact-item" ng-repeat="libro in libros | orderBy:'nombre'">
-            <div > {{libro.nombre}} - {{libro.autor}}</div>
-        </div>
-   </div>	
+
+<body class="ng-cloak">
+  <div ng-controller="libroController" class="container">
+    <div class="wrapper">
+      hola
+      <div class="contact-item" ng-repeat="libro in libros">
+        <div> {{libro.nombre}} - {{libro.autor}}</div>
+      </div>
     </div>
+  </div>
 </body>
+
 </html>
