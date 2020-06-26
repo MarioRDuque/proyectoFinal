@@ -1,11 +1,14 @@
-function libroController($scope){
-    $scope.libros=[
-            {nombre:"AngularJS", abreviatura: "AngularJS", autor:"Equipos Google"},
-            {nombre:"Algoritmos", abreviatura: "ALG", autor:"Receta"},
-            {nombre:"Gestor de Ventas", abreviatura: "GV", autor:"Manuel Manrique"},
-            {nombre:"Gestión de Redes", abreviatura: "GR", autor:"Ignacio Chavez"}
-            ];
-    }
+var libroController = function ($timeout, $scope) {
+    $scope.libros = [
+        { nombre: "AngularJS", abreviatura: "AngularJS", autor: "Equipos Google" },
+        { nombre: "Algoritmos", abreviatura: "ALG", autor: "Receta" },
+        { nombre: "Gestor de Ventas", abreviatura: "GV", autor: "Manuel Manrique" },
+        { nombre: "Gestión de Redes", abreviatura: "GR", autor: "Ignacio Chavez" }
+    ];
+}
+
+var calculator = angular.module('calculator', []).
+    controller('libroController', libroController);
 //CONECTANDO A LA BD
 /*
     (function () {
@@ -13,27 +16,27 @@ function libroController($scope){
         angular.module('app.controllers')
             .controller('libroCtrl', ['$scope', '$mdDialog', 'mantenimientoService', 'utilService',
                 function ($scope, $mdDialog, mantenimientoService, utilService) {
-    
+
                     $scope.permisos = utilService.obtenerPermisos();
                     $scope.SHORTCUTS = utilService.obtenerShortCuts();
                     $scope.buttons = {};
-    
+
                     $scope.nuevo = function () {
                         $scope.datos.limpiarFormulario();
                         $scope.datos.cambiarControles(true);
                         nuevo($scope.buttons);
                         focusFirstInputFormulario();
                     }
-    
+
                     $scope.cancelar = function () {
                         if (typeof ($scope.datos) !== "undefined") {
                             $scope.datos.limpiarFormulario();
                             $scope.datos.cambiarControles(false);
                         }
-    
+
                         cancelar($scope.buttons);
                     }
-    
+
                     $scope.seleccionarAlmacen = function (almacen) {
                         showLoader(true);
                         mantenimientoService.obtener("almacen", almacen.id)
@@ -53,11 +56,11 @@ function libroController($scope){
                                 utilService.alert('Error al conectarse con el servidor.');
                             });
                     }
-    
+
                     $scope.guardar = function () {
                         $scope.datos.guardar();
                     }
-    
+
                     $scope.respuestaFormulario = function (data) {
                         if (data.estado == "exito") {
                             $scope.reload.start();
@@ -65,16 +68,16 @@ function libroController($scope){
                         }
                         utilService.alert(data.mensaje);
                     };
-    
+
                     $scope.mensajesDesdeFormulario = function (mensaje) {
                         utilService.alert(mensaje);
                     }
-    
+
                     $scope.modificar = function () {
                         $scope.datos.cambiarControles(true);
                         modificar($scope.buttons);
                     }
-    
+
                     $scope.eliminar = function () {
                         var id = $scope.datos.obtenerDatos().id;
                         $mdDialog.show(utilService.confirm("¿Está seguro de eliminar el almacén?")).then(function () {
@@ -87,7 +90,7 @@ function libroController($scope){
                                         $scope.reload.start();
                                         $scope.cancelar();
                                     }
-    
+
                                     if (data.estado === "error") {
                                         utilService.alert(data.mensaje);
                                     }
@@ -98,7 +101,7 @@ function libroController($scope){
                                 });
                         });
                     }
-    
+
                     $scope.events = {
                         resultSearch: function (data) {
                             if(!esNullOUndefined(data) && !esArrayVacio(data.registros)){
@@ -108,7 +111,7 @@ function libroController($scope){
                             }
                         }
                     };
-    
+
                     var parametros = {
                         nombreReporte: 'almacen',
                         formatoExportacion: 'PDF'
@@ -119,22 +122,22 @@ function libroController($scope){
                         parametros.nombre = filtros.nombre;
                         parametros.abreviatura = filtros.abreviatura;
                     }
-    
+
                     $scope.visualizar = function () {
                         leerParametrosDeReporte();
                         $scope.mostrarModal.abrirModal(parametros);
                     }
-    
+
                     $scope.imprimir = function () {
                         leerParametrosDeReporte();
                         $scope.imprimirOperaciones.imprimir(parametros);
                     }
-    
+
                     $scope.cancelar();
-    
+
                 }
             ]);
-    
+
     })();
-  */  
+  */
 

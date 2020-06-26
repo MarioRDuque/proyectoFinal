@@ -1,11 +1,13 @@
 <!DOCTYPE HTML>
-<html ng-app="libroController">
+<html ng-app="calculator">
+
 <head>
   <script src="./angular.min.js"></script>
   <script src="./calc.js"></script>
   <script src="./libroCtrl.js"></script>
   <link href="./bootstrap.css" rel="stylesheet">
 </head>
+<<<<<<< HEAD
 <body >
     <div>
 	    <div class="wrapper">
@@ -13,6 +15,18 @@
             <div> {{libro.nombre}} - {{libro.autor}}</div>
         </div>
    </div>	
+=======
+
+<body class="ng-cloak">
+  <div ng-controller="libroController" class="container">
+    <div class="wrapper">
+      hola
+      <div class="contact-item" ng-repeat="libro in libros">
+        <div> {{libro.nombre}} - {{libro.autor}}</div>
+      </div>
+>>>>>>> a05c842b9c6df1cbd098f62d45588ffda26b2248
     </div>
+  </div>
 </body>
+
 </html>
