@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
-<html ng-app>
+<html ng-app="libroController">
 <head>
   <script src="./angular.min.js"></script>
   <script src="./calc.js"></script>
   <script src="./libroCtrl.js"></script>
   <link href="./bootstrap.css" rel="stylesheet">
 </head>
-<body ng-controller="libroController" class="container">
+<body >
     <div>
 	    <div class="wrapper">
         <div class="contact-item" ng-repeat="libro in libros | orderBy:'nombre'">
-            <div class="nombre"> {{libro.nombre}} - {{libro.autor}}</div>
+            <div > {{libro.nombre}} - {{libro.autor}}</div>
         </div>
    </div>	
     </div>
