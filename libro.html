@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+	    <meta charset="utf-8">
+		<title>Libros</title>
+            <script src="./angular.min.js"></script>
+            <script src="./libroCtrl.js"></script>
+            <link href="./bootstrap.css" rel="stylesheet">
+   	</head>
+	<body ng-controller="libroController">
+            <h1>Biblioteca Yademás</h1>	
+	    <div class="wrapper">
+            <div class="contact-item" ng-repeat="libro in libros | orderBy:'nombre'">
+                <div class="nombre"> {{libro.nombre}} - {{libro.autor}}</div>
+            </div>
+	     </div>	
+	</body>
+</html>
