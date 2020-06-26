@@ -13,5 +13,6 @@ angular.module('LibroApp.controllers', []).
 
     libroService.listar().then(function (response) {
       console.log(response)
+      $scope.libros =response.extraInfo;
     });
   })
