@@ -17,6 +17,16 @@
 
 <body class="ng-cloak">
   <div ng-controller="libroController" class="container p-5">
+    <!--Alerta-->
+    <div class="alert {{color}} alert-dismissible fade show" role="alert" ng-if="mensaje">
+      <strong>¡Aviso!</strong>
+      <b id="alerta">{{mensaje}}</b>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!--Listado-->
     <div class="card" ng-if="accion=='Listar'">
       <div class="card-header">
         Biblioteca
@@ -47,20 +57,22 @@
               <td>
                 <button class="btn btn-sm btn-success mr-1" ng-click="editar(libro)"><i class="fa fa-edit"></i></button>
                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"
-                  ng-click="eliminar(seleccionado)"><i class="fa fa-trash"></i></button>
+                  ng-click="eliminar(libro)"><i class="fa fa-trash"></i></button>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <!--Formulario-->
     <div class="card" ng-if="accion=='Nuevo' || accion=='Editar'">
       <div class="card-header">
         {{accion=='Nuevo' ? 'Nuevo Libro' : 'Editar Libro'}}
         <button class="btn btn-outline" style="float:right;" ng-click="cancelar()"> <i class="fa fa-cancel"></i>
           Cancelar</button>
       </div>
-      <fieldset class="card-body" [disabled]="cargando">
-        <form class="container">
+      <fieldset class="card-body" ng-disabled="cargando">
+        <form name="formulario" class="container">
           <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 p-4">
@@ -77,7 +89,7 @@
                 <option value="MALO">MALO</option>
               </select>
               <div class="text-right pt-4">
-                <button class="btn btn-primary" ng-click="accion=='Nuevo' ? guardar() : guardarEdicion()">
+                <button class="btn btn-primary" ng-click="accion=='Nuevo' ? guardar(formulario) : guardarEdicion(formulario)">
                   <i class="fa fa-save" ng-if="!cargando"></i>
                   <i class="fa fa-spinner fa-pulse" ng-if="cargando"></i>
                   Guardar</button>
@@ -96,7 +108,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Eliminar Libro</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" id="cerrar" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -104,13 +116,14 @@
             <p>¿Desea eliminar este libro permanentemente?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" id="cerrar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" ng-click="confirmarEliminacion()" class="btn btn-primary">Confirmar</button>
+            <button type="button" ng-disabled="cargando" class="btn btn-secondary"
+              data-dismiss="modal">Cancelar</button>
+            <button type="button" ng-disabled="cargando" ng-click="confirmarEliminacion()" class="btn btn-primary"><i
+                class="fa fa-spinner fa-pulse" ng-if="cargando"></i>Confirmar</button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </body>
 

@@ -10,6 +10,8 @@ angular.module('LibroApp.services', [])
       })
         .then(function success(response) {
           return response.data;
+        }).catch(function (err) {
+          return err;
         });
     }
 
@@ -21,6 +23,8 @@ angular.module('LibroApp.services', [])
       })
         .then(function success(response) {
           return response.data;
+        }).catch(function (err) {
+          return err;
         });
     }
 
@@ -32,17 +36,20 @@ angular.module('LibroApp.services', [])
       })
         .then(function success(response) {
           return response.data;
+        }).catch(function (err) {
+          return err;
         });
     }
 
-    libroServicio.eliminar = function (libro) {
+    libroServicio.eliminar = function (id) {
       return $http({
         method: 'DELETE',
-        url: 'http://localhost:8091/libro/eliminar',
-        data: libro
+        url: 'http://localhost:8091/libro/eliminar/' + id
       })
         .then(function success(response) {
           return response.data;
+        }).catch(function (err) {
+          return err;
         });
     }
 

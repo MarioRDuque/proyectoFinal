@@ -7,12 +7,29 @@ angular.module('LibroApp.controllers', []).
     $scope.libros = [];
     $scope.libro = {};
     $scope.cargando = false;
+    $scope.color = "alert-warning";
+    $scope.mensaje = "";
+
+    $scope.eliminarMensaje = function () {
+      setTimeout(() => { $scope.mensaje = "" }, 1000);
+    }
 
     $scope.listar = function () {
       $scope.cargando = true;
       libroService.listar().then(function (response) {
+        if (response && response.extraInfo) {
+          $scope.libros = response.extraInfo;
+          $scope.mensaje = response.operacionMensaje;
+          $scope.color = "alert-success";
+        } else {
+          $scope.mensaje = (response && response.operacionMensaje) || "Error desconocido.";
+        }
         $scope.cargando = false;
-        $scope.libros = response.extraInfo;
+        $scope.eliminarMensaje();
+      }).catch(function (err) {
+        $scope.cargando = false;
+        $scope.mensaje = err && err.message;
+        $scope.eliminarMensaje();
       });
     }
 
@@ -32,29 +49,78 @@ angular.module('LibroApp.controllers', []).
       $scope.libro = seleccionado;
     }
 
-    $scope.guardar = function () {
-      $scope.cargando = true;
-      libroService.guardar($scope.libro).then(function (response) {
-        $scope.accion = 'Listar';
-        $scope.listar();
-      });
+    $scope.guardar = function (formulario) {
+      if (!formulario.valid) {
+        $scope.mensaje = "Existen errores en el formulario";
+        $scope.eliminarMensaje();
+      } else {
+        $scope.cargando = true;
+        libroService.guardar($scope.libro).then(function (response) {
+          if (response && response.extraInfo) {
+            $scope.accion = 'Listar';
+            $scope.mensaje = response.operacionMensaje;
+            $scope.libros.push(response.extraInfo);
+          } else {
+            $scope.mensaje = (response && response.operacionMensaje) || "Error desconocido.";
+          }
+          $scope.cargando = false;
+          $scope.eliminarMensaje();
+        }).catch(function (err) {
+          $scope.cargando = false;
+          $scope.mensaje = err && err.message;
+          $scope.eliminarMensaje();
+        });
+      }
     }
 
-    $scope.guardarEdicion = function () {
-      $scope.cargando = true;
-      libroService.editar($scope.libro).then(function (response) {
-        $scope.accion = 'Listar';
-        $scope.listar();
-      });
+    $scope.guardarEdicion = function (formulario) {
+      if (!formulario.valid) {
+        $scope.mensaje = "Existen errores en el formulario";
+        $scope.eliminarMensaje();
+      } else {
+        $scope.cargando = true;
+        libroService.editar($scope.libro).then(function (response) {
+          if (response && response.extraInfo) {
+            $scope.accion = 'Listar';
+            $scope.mensaje = response.operacionMensaje;
+            var index = $scope.libros.findIndex(item => item.id = $scope.libro.id);
+            if (index) {
+              $scope.libros[index] = response.extraInfo;
+            }
+          } else {
+            $scope.mensaje = (response && response.operacionMensaje) || "Error desconocido.";
+          }
+          $scope.cargando = false;
+          $scope.eliminarMensaje();
+        }).catch(function (err) {
+          $scope.cargando = false;
+          $scope.mensaje = err && err.message;
+          $scope.eliminarMensaje();
+        });
+      }
     }
 
     $scope.confirmarEliminacion = function () {
       $scope.cargando = true;
-      libroService.eliminar($scope.libro).then(function (response) {
-        $scope.accion = 'Listar';
-        let element = document.getElementById("cerrar");
-        element ? element.click() : null;
-        $scope.listar();
+      libroService.eliminar($scope.libro.id).then(function (response) {
+        if (response && response.extraInfo) {
+          $scope.accion = 'Listar';
+          $scope.mensaje = response.operacionMensaje;
+          let element = document.getElementById("cerrar");
+          element ? element.click() : null;
+          var index = $scope.libros.findIndex(item => item.id = $scope.libro.id);
+          if (index) {
+            $scope.libros.splice(index, 1);
+          }
+        } else {
+          $scope.mensaje = (response && response.operacionMensaje) || "Error desconocido.";
+        }
+        $scope.cargando = false;
+        $scope.eliminarMensaje();
+      }).catch(function (err) {
+        $scope.cargando = false;
+        $scope.mensaje = err && err.message;
+        $scope.eliminarMensaje();
       });
     }
 
