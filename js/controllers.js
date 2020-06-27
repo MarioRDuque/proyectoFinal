@@ -50,7 +50,7 @@ angular.module('LibroApp.controllers', []).
     }
 
     $scope.guardar = function (formulario) {
-      if (!formulario.valid) {
+      if (!formulario.$valid) {
         $scope.mensaje = "Existen errores en el formulario";
         $scope.eliminarMensaje();
       } else {
@@ -74,7 +74,7 @@ angular.module('LibroApp.controllers', []).
     }
 
     $scope.guardarEdicion = function (formulario) {
-      if (!formulario.valid) {
+      if (!formulario.$valid) {
         $scope.mensaje = "Existen errores en el formulario";
         $scope.eliminarMensaje();
       } else {
