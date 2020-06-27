@@ -2,10 +2,13 @@
 <html ng-app="LibroApp">
 
 <head>
+  <meta charset="utf-8">
+  <title>Proyecto Final</title>
   <script src="./angular.min.js"></script>
   <script src="./js/app.js"></script>
   <script src="./js/controllers.js"></script>
   <script src="./js/services.js"></script>
+<<<<<<< HEAD
   <link href="./bootstrap.css" rel="stylesheet">
   <link src="./font-awesome/css/font-awesome.min.css">
 </head>
@@ -36,9 +39,111 @@
                 </tr>
                 <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </tbody>
+=======
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+
+<body class="ng-cloak">
+  <div ng-controller="libroController" class="container p-5">
+    <div class="card" ng-if="accion=='Listar'">
+      <div class="card-header">
+        Biblioteca
+        <button class="btn btn-primary" style="float:right;" ng-click="nuevo()"> <i class="fa fa-save"></i>
+          Nuevo</button>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th><span>#</span></th>
+              <th><span>Nombre</span></th>
+              <th><span>Abreviatura</span></th>
+              <th><span>Autor</span></th>
+              <th><span>Estado</span></th>
+              <th><span>Opciones</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <div class="text-center" ng-if="cargando"><i class="fa fa-spinner fa-pulse fa-2x" ng-if="cargando"></i>
+            </div>
+            <tr ng-repeat="libro in libros" sglclick="select({banco: banco})">
+              <td>{{libro.id}}</td>
+              <td>{{libro.nombre}}</td>
+              <td>{{libro.abreviatura}}</td>
+              <td>{{libro.autor}}</td>
+              <td>{{libro.estado}}</td>
+              <td>
+                <button class="btn btn-sm btn-success mr-1" ng-click="editar(libro)"><i class="fa fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"
+                  ng-click="eliminar(seleccionado)"><i class="fa fa-trash"></i></button>
+            </tr>
+          </tbody>
+>>>>>>> 80879ece438fef9b06fbb87a4fa8422bdc87a9f1
         </table>
-    </md-table-container>
+      </div>
     </div>
+    <div class="card" ng-if="accion=='Nuevo' || accion=='Editar'">
+      <div class="card-header">
+        {{accion=='Nuevo' ? 'Nuevo Libro' : 'Editar Libro'}}
+        <button class="btn btn-outline" style="float:right;" ng-click="cancelar()"> <i class="fa fa-cancel"></i>
+          Cancelar</button>
+      </div>
+      <fieldset class="card-body" [disabled]="cargando">
+        <form class="container">
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 p-4">
+              <label>Nombre</label>
+              <input ng-model="libro.nombre" type="text" class="form-control" required />
+              <label>Abreviatura</label>
+              <input ng-model="libro.abreviatura" type="text" class="form-control" required />
+              <label>Autor</label>
+              <input ng-model="libro.autor" type="text" class="form-control" required />
+              <label>Estado</label>
+              <select ng-model="libro.estado" class="form-control" required>
+                <option value="BUENO">BUENO</option>
+                <option value="REGULAR">REGULAR</option>
+                <option value="MALO">MALO</option>
+              </select>
+              <div class="text-right pt-4">
+                <button class="btn btn-primary" ng-click="accion=='Nuevo' ? guardar() : guardarEdicion()">
+                  <i class="fa fa-save" ng-if="!cargando"></i>
+                  <i class="fa fa-spinner fa-pulse" ng-if="cargando"></i>
+                  Guardar</button>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+        </form>
+      </fieldset>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Eliminar Libro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>¿Desea eliminar este libro permanentemente?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="cerrar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" ng-click="confirmarEliminacion()" class="btn btn-primary">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 
