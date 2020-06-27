@@ -86,6 +86,11 @@ angular.module('LibroApp.controllers', []).
         $scope.eliminarMensaje();
         return false;
       }
+      if (!['BUENO', 'MALO', 'REGULAR'].includes($scope.libro.estado)) {
+        $scope.mensaje = "El valor ingresado no corresponde al combo.";
+        $scope.eliminarMensaje();
+        return false;
+      }
       return true;
     }
 
