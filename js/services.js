@@ -6,7 +6,7 @@ angular.module('LibroApp.services', [])
     libroServicio.listar = function () {
       return $http({
         method: 'GET',
-        url: 'http://localhost:8091/libro/listar'
+        url: 'http://localhost:8080/libro/listar'
       })
         .then(function success(response) {
           return response.data;
@@ -18,7 +18,7 @@ angular.module('LibroApp.services', [])
     libroServicio.guardar = function (libro) {
       return $http({
         method: 'POST',
-        url: 'http://localhost:8091/libro/crear',
+        url: 'http://localhost:8080/libro/crear',
         data: libro
       })
         .then(function success(response) {
@@ -31,7 +31,7 @@ angular.module('LibroApp.services', [])
     libroServicio.editar = function (libro) {
       return $http({
         method: 'PUT',
-        url: 'http://localhost:8091/libro/editar',
+        url: 'http://localhost:8080/libro/editar',
         data: libro
       })
         .then(function success(response) {
@@ -44,7 +44,7 @@ angular.module('LibroApp.services', [])
     libroServicio.eliminar = function (id) {
       return $http({
         method: 'DELETE',
-        url: 'http://localhost:8091/libro/eliminar/' + id
+        url: 'http://localhost:8080/libro/eliminar/' + id
       })
         .then(function success(response) {
           return response.data;

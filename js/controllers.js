@@ -51,7 +51,7 @@ angular.module('LibroApp.controllers', []).
 
     $scope.guardar = function (formulario) {
       if (!formulario.$valid) {
-        $scope.mensaje = "Existen errores en el formulario";
+        $scope.mensaje = "Debe completar todos los datos en el formulario";
         $scope.eliminarMensaje();
       } else {
         $scope.cargando = true;
